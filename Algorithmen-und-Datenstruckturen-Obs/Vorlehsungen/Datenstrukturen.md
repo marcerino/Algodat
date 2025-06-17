@@ -272,3 +272,198 @@ Sei kh eine funktion die k -> {0,...*n-1*}
 	- **Hashing mit verketten**. Bei kollisionen verwnden alle den selben Platz (chaining, es entsteht dort eine Liste und die Verkette liste wird abgeguckt)
 	- **Offene Adressierung**: Suche Neuen Platz
 	- **Kuckkuck**, Wenn schon besetzt wird vorhandenens Element rausgeschmissen. Der rausgeschmissene Eintrag wird einen neuen 
+#### Hashing mit Verketten
+ Bei kollisionen verwnden alle den selben Platz (chaining, es entsteht dort eine Liste und die Verkette liste wird abgeguckt)
+Initialisierung 
+	Wähle m die Größe der Hashtabelle
+	Lege einen Eintrag T der Größe m an [Hashtabelle]
+	An jedem Position von T initialisiere eine Leere einfach verkettete Liste 
+	wähle Hashfunktion h (Kompressions funktion)
+get(k): i <- h(k) | l <- verkette Liste in T[i] Durchsuche l nach eintrag mit k 
+	Falls gefunden gib wert zurück
+	falls nicht | nicht in 
+put(k,v)
+	i <- h(k)
+	l <- Verkette Liste in T[i]
+	remoce  i <- (k)
+___
+Speicherbedarf:
+O(m + n)
+m größe der Hashtabelle Anzahl der einträge
+___
+Laufzeit:
+Initiialisierung O(m) + Zeit zum wählen der Hashfunktion
+get/put/delete: Zeit zumk Berechnen der Hasfunktion und Zeit von der länge von von l
+also im Worstcase länge l
+
+Also  Die Eigesnchaft von h sind wesentlich für die analyse.
+
+Bracuhen annahme über h
+Einfachse Annahme (**gleichmäßiges Hashing**)
+-  h kann in Konstanter Zeit initialisiert und bere chent werden 
+- und h verhaltet siech wie eine Zufällige fungktion
+=> jedesmal wenn h zum ersten mal für einen  schlüssel k berechnet wird, wält h für k zufälli gleichverteilt ein Index in {,...,n-1}, unabhängige von an deren Schlüssel k Danach ist h(k) fest.
+Aufgrund der Gleichverteilung sind Gesetze wie Taubenschlag prinzip anwendbar.
+Also Minimum der Einträge der Liste ist (aufgerundet) (n/m)
+Maxiumum ist n
+
+Die frage was erwarten wir wie viele Elemente im gleichen Eimer wie n sind. 
+ist  1 + SUMME (n- , i=1) xi | wobei xi die WSkeit ist
+
+
+Sei S eine Menge von Einträgen, die eine Hastabelle mit größe m gesperichert wird. Sei x ein Fester Schlüssel Nimm an fester Schlüssel. Nimm an, wir verwenden Hashing mit verketten und dass sich die Hashfunktion Random verhält. , Dann istdieir Erwartete laufzeit für eine Operation auf x wie folgt, :
+E = [1 + SUMME (n- , i=1) xi] = 1+  summe E[xi] =  + summe 1/m  = Eh[T] = O (1+(n/m))
+
+Das n/m ist der **Ladefaktor**,  Je kleiner der Ladefaktor des do besser. ist er aber zu klein dann verschwenden wir Speicherplatz
+Jede Zufällige Hashing-Funktion ist Ideal für alle mengen. aber es gibt mindestens 1 Menge die für die desaströß für die Hashing mit Verkettung. 
+*Ideal wird 1 bis * besser 1 bis 2 angestrebt
+
+Verkettete Listen sind nicht gut in einem Heap, somit nicht ist das Cashing ideal. Es hat keine Zeitliche oder örtliche Localität
+#### Hashing mit offener Adressierung
+Ziel: Speicjere alle Einträge direkt in Hashtabelle. Keine Sekundären Datenstrucktur.
+Problem: Wir können nicht mehr Garantieren, dass sich das Element an einem Festen Ort befindet.
+Lösung: **Lineares Sondieren** Wir gehen einfach immer in den nächstes 
+___
+**Details**
+Hashtabelle T die größe mIn der Zellen von T komm drei verschiede Dinge: 
+- Null (zelle ist unberührt)
+- Eintrag (k,v) Schlüssel k wet v
+- Spezialfall mit DELETED (Tombstone)
+Der Tombstone ist benötigt, da die impleemntation von get/put/delete bei null aufhöhrt (ist ein früher abbruch) Sollte das element k   ... k eigentlich, ...., Gelöschtes element,..., k ist . Dann gilt, sollte es nur null geben dann stoppt die suche vor k. Durch tombstone wird auch hinter der leeren Stelle gesucht.    
+___
+**Initialisierung**
+- Lege Hashtabelle mit m Positionen an
+- Initialisiere alle Positionen mit Null
+- Wähle die Hashfunktion.
+___
+``` 
+get(k):
+	pos := h(k)
+	for i = 1 to m do
+		if pos.k == null
+			return null
+		elif pos.k == k do return v
+		else pos = (pos +1) mod m 
+	null
+	
+remove(k):
+	pos = h(k)
+	for i=1 to m do
+		if T.pos == Null then
+			null
+		elif T.pos.key == k then 
+			T.pos = Toombstone 
+		else pos = (pos+1) mod m
+
+put(k,v): 
+	pos = h(k)
+	delete pos = null
+	for i= 1 to m
+		if pos.key == key then 
+			pos = (k,v)
+		if pos.k == Toombstone && delpos == Null
+			delps = pos
+		elif pos == null then 
+			if deleted pos != null then 
+				posdeleted = (k,v)
+			else pos = (k,v)
+			return
+		
+		else pos = (pos + 1) mod m
+	throw ("Shit's full")
+```
+___
+#### Hashing mit KuckKuck 
+**Idee**: Verwenden von 2 Hashfunktionen. h1 und h2
+ - Für jeden  Schlüssel k gibt es nur 2 Möglichkeiten wo h stehen kann. h1(k), h2(k)
+ - Keine sekundär Datenstrucktur, Einträge direkt in Hashtabelle.
+ ___
+ **Initialisierung**:
+ - Wähle Tabellen Größe m 
+ - Lege Hastabelle der Größe m an
+ - Initialisiere alle positionen mit Null
+ - Wähle 2 Hasfunktionen h1, h2: K -> [0, ..., m-1],  h1≠h2
+ ___
+ **Funktionen**:
+```
+def get(k):  
+	if Tabelle[h1(k)].k == k then 
+		return Tabelle[h1(k)].v
+	elif Tabelle[h2(k)].k == k then 
+		return Tabelle[h2(k)].v
+	else null
+def delete(k):
+	 Tabelle[h1(k)].k == k then 
+		Tabelle[h1(k)].v = null
+	elif Tabelle[h2(k)].k == k then 
+		Tabelle[h2(k)] = null
+	else println(" not in the fucking List")
+def put(k):
+// Anfang der überprüfung von einfaches überschreiben
+	if T[h1(k)] != null && T[h1(k)].k = k then
+		T[h1(k)].v = v
+		return
+	if T[h2(k)] != null && T[h2(k)].k = k then
+		T[h2(k)].v = v
+		return
+// Eigentliches pu mit guckguck funktion
+pos = h1(k)
+elemetn = (k,v)
+	for i = 1 to m do
+		if T[pos] == null then
+			T[pos] = (k,v) 
+	
+	temp = T[pos]
+	T[pos] = element
+	element = T[pos]
+	// nun  werden die positionen mit dem neuen k ausprobiert.
+	if  pos == h1(k) then
+		pos = h2(k)
+	else pos = h1 (k)  
+```
+Ladefaktor e < 1
+Worstcase get() = O(1)
+Worstcase delete() = O(1)
+Worstcase put() = m für eine schleife ggf. rehashing ( ) somit unbound  
+____
+Weitere Anwendungen von Hashfunktionen:
+Bilde eine sehr Große Menge aif eine wesentlich kleinerer menge ab
+Möglichst struckturlos, kollisionen möglichst vermeiden
+Nützlich fürs Fingerprinting. . Dient zur verifikation. Ist die Hashfunktion auf einen 
+	Um zwei Große datenmengen auf gleichheuit zu überprüfen. Vergleiche Hashwerte und nicht datenmengen selber. 
+Kompakte hashfunktion Darstellung
+	kann hashwert nicht auf Dateninhalte schließen
+___
+Erster Teil ist nicht mit aufgenommen. Kryptographidche hashfunktion
+
+Anwendung der Datenstrukturen
+
+  
+
+Hash Referenz 
+
+Objekte können Referenz auf andere Referenen speichern.
+
+Bsp obj Vorlesung referenziert das Objekt Dozent
+
+  
+
+Hash Referenz zusätzlich zur Referenz speichert zusätzlich den Wert aller Attribute des Objektes. Somit sichergestellt das Objekt nicht geändert wurde.
+
+  
+
+Besonders praktisch verkettete Liste, denn der Wert ist Parameter somit folgt. Wer einen knoten einfügen möchte muss den knoten davor ändern und dann den davor etc. etc. somit kann nur ein knoten am Anfang eingefügt werden.
+
+  
+
+Dies ist das Grundkonzeption der blockchain. Und alle kompetenteren um den ersten knoten, da nur dort etwas eingefügt werden kann ohne die komplette Liste an jedem knoten zu ändern.
+
+  
+
+Es gibt somit einen kompetentiven Wettbewerb dort eine einzufügen. Die Idee man darf nur einbauen wenn die hashfunktion auf 10 Nullen ändert. 
+
+Das Minigolf ist es einen Nonne Parameter zu finden der diese Angabe erfüllt. Also du darfst nur einfügen wenn hash von vorhergehender Tabelle+ Attribute des Knotens sowie nonceattribute auf 10 Nullen endet.
+
+  
+  
+  

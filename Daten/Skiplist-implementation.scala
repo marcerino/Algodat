@@ -1,7 +1,6 @@
-// cd .\Documents\Universität\BSc-Bioinformatik\Algorithmen-und-Datenstruckturen\Daten\
-// scala Skiplist-implementation.scala
+// Abgabe Immanuel, Anna Tamina Freiin von Steitcorn, Marcel
 class Skiplist[A,B]:
-    private class Node[A,B](var key: Double, var value: String, var prev: Node[A,B],var next: Node[A,B],  var down: Node[A,B]) // N soll Node sein, kann aber so nicht implementiert werden 
+    private class Node[A,B](var key: Double, var value: String,var next: Node[A,B],  var down: Node[A,B]) // N soll Node sein, kann aber so nicht implementiert werden 
     private class Liste():
         private var size: Int = 0
         // private val level: Int = level_
@@ -9,12 +8,11 @@ class Skiplist[A,B]:
         // heading
         private var head: Node[A,B] = null //(0,"head",null , null, null) // Dummy node
         private var tail: Node[A,B] = null //(100000,"tail", null , null, null) // Dummy node
-        head = Node[A,B](Double.NegativeInfinity, "Dummyh", null, tail, null)
-        tail = Node[A,B](Double.PositiveInfinity, "Dummyt", head, null, null)
+        head = Node[A,B](Double.NegativeInfinity, "Dummyh", tail, null)
+        tail = Node[A,B](Double.PositiveInfinity, "Dummyt", null, null)
         
         // connecting the dummy nodes
         head.next = tail
-        tail.prev = head
         head.down = null
         tail.down = null
         def getHead(): Node[A,B] = head
@@ -29,18 +27,17 @@ class Skiplist[A,B]:
     private var headnode: Node[A,B] = list0.getHead()
 
     // Private funktionen
-    private def insert(linkerknoten: Node[A,B], neuk: Double, neuv: String, rechterknoten: Node[A,B]): Unit =
-        var newnode: Node[A,B]= new Node(neuk,neuv,linkerknoten,rechterknoten,null) 
+    private def insert(linkerknoten:Node[A,B], neuk: Double, neuv: String,rechterknoten:Node[A,B]): Unit =
+        var newnode: Node[A,B]= new Node[A,B](neuk,neuv,rechterknoten,null) 
         linkerknoten.next = newnode
-        rechterknoten.prev = newnode 
     
     private def randomlevel():Int =
         val random = scala.util.Random
         var level: Int = 0
-        // while random.between(0,4) == 1 do
-        //     level += 1
-        // level
-        random.between(0,4)
+        while random.between(0,2) == 1 do
+            level += 1
+        level
+        
 
     private def newlevel(): Unit =
         maxlevellist = maxlevellist + 1
@@ -52,7 +49,7 @@ class Skiplist[A,B]:
         headnode = maxlist.getHead()
 
 
-    private def isempty: Boolean = size == 0 
+    def isempty: Boolean = size == 0 
     
     private def traversierung (target:Double):Node[A,B] =
         var current: Node[A,B] = headnode
@@ -64,12 +61,16 @@ class Skiplist[A,B]:
         
             if current.down == null && target < current.next.key then
                 abbruch = true
-
         current
 
     private def sameleveltravers(startnode:Node[A,B], schlussel: Double): Node[A,B] =
         var momentane: Node[A,B] = startnode
         while schlussel >= momentane.next.key do
+            momentane = momentane.next
+        momentane
+    private def sameleveltraversexclusivekey(startnode:Node[A,B], schlussel: Double): Node[A,B] =
+        var momentane: Node[A,B] = startnode
+        while schlussel > momentane.next.key do
             momentane = momentane.next
         momentane
 
@@ -83,18 +84,16 @@ class Skiplist[A,B]:
         else // neuenschlüsel einfügen
             
             val levelhoe: Int = randomlevel() // höhe finden
-            println("level höhe" + " " + levelhoe)
-            println("maxlevellist "+ " " + maxlevellist)
+            // println("level höhe" + " " + levelhoe)
+            // println("maxlevellist "+ " " + maxlevellist)
 
             if levelhoe > maxlevellist then // ggf. neue Level einfügen
                 while levelhoe > maxlevellist do
                     newlevel()
 
-            println("maxlevellist "+ " " + maxlevellist)
+            // println("maxlevellist "+ " " + maxlevellist)
 
             current = maxlist.getHead()
-            
-            
             
             // println("compstart ")
             // for i <- levelhoe to maxlevellist-1 do println(i) // zum hoechsten level finden
@@ -103,15 +102,12 @@ class Skiplist[A,B]:
 
             for i <- levelhoe to maxlevellist-1 do // zum hoechsten level finden
                 current = current.down
-        
-            
             var uppernode: Node[A,B] = null
            
            
             while current.down != null do // traversiert bis zum zweit untersten level, da dort value null sein soll
-                
                 current = sameleveltravers(current, key)
-                insert(current, key, null, current.next) // neuenschlüsel einfügen
+                insert(current, key, null,current.next) // neuenschlüsel einfügen
                 if uppernode != null then uppernode.down = current.next
 
                 uppernode = current.next
@@ -120,13 +116,13 @@ class Skiplist[A,B]:
 
             // beigntt die traversierung in der Untersten schleife damit die 
             current = sameleveltravers(current, key)
-            insert(current, key, value, current.next) // neuenschlüsel einfügen
+            insert(current, key, value,current.next) // neuenschlüsel einfügen
             if uppernode != null then uppernode.down = current.next
 
 
 
             size += 1
-            println("fertig von einfügen von "+ key)
+            // println("fertig von einfügen von "+ key)
 
     def get(schlussel: Double): String = 
         val position: Node[A,B] = traversierung(schlussel)
@@ -139,26 +135,46 @@ class Skiplist[A,B]:
     def delete (schluessel: Double):Unit = 
         def verbinden(linkerknoten: Node[A,B], rechterknoten: Node[A,B]): Unit =
             linkerknoten.next = rechterknoten
-            rechterknoten.prev = linkerknoten
         
         var smthdeleted: Boolean = false
         var current: Node[A,B] = headnode
+        var previous: Node[A,B] = headnode 
+
         while current != null do
             current = sameleveltravers(current,schluessel)
-
+            previous = sameleveltraversexclusivekey(previous,schluessel)
             if current.key == schluessel then 
-                verbinden(current.prev, current.next)
+                verbinden(previous, current.next)
                 smthdeleted = true
             current = current.down
-
+            previous = previous.down
+        
         if smthdeleted == true then
             size -= 1
 
         else
             println("Nicht gefunden") // Key not found, nothing to delete
 
-   
-    private def printlist(): Unit =
+    def next(key: Double): String =
+        val position: Node[A,B] = traversierung(key)
+        if position.next.key != Double.PositiveInfinity then
+             position.next.value
+        else null
+    
+    def prev (key: Double): String =
+        var current: Node[A,B] = headnode
+        var abbruch: Boolean = false // fußgesteuert sieht echt weird aus. so ists einfacher zu lesen  
+        while abbruch == false do 
+            current = sameleveltravers(current,key)
+            
+            if current.down != null then 
+                current = current.down
+        
+            if current.down == null && key <= current.next.key then
+                abbruch = true
+        current.value
+
+    def printlist(): Unit =
         println("Die momentane Liste:")
         var firstnode: Node[A,B] = headnode
         var printLevel: Int = maxlevellist
@@ -179,21 +195,22 @@ class Skiplist[A,B]:
     def test():Unit =
         // println(randomlevel()) // 
         // def testtraversierung(): = 
-        // val current: Node[A,B] = headnode 
-        // insert(current, 1.0 , "zero", current.next) // Insert dummy values for testing
-        // println(current.next.key) // Should traverse to the dummy node
-        // println(traversierung(1.0).key) // Should traverse to the dummy node
-        // get(0.1) // Should print "zero"
+   
+        // get(0.1) //
         put(1.0, "one")
         // printlist()
         put(2.4, "sdf")
         // printlist()
+        put(35.0,"34")
+        put(36.0,"34")
+        put(31.0,"34")
+        put(3522.0,"34")
 
-        put(8.6, "28")
+        put(8.6, "8,6")
         put(0.5, "prev")
-        printlist()
-        
-        delete(0.5)
+        // printlist()
+        put(15.0, "Hallo")
+        // delete(0.5)
         printlist()
 
         // println(list0.getHead().next.key)
@@ -204,11 +221,29 @@ class Skiplist[A,B]:
         // println(headnode.down.next.key)
 
 
-        // println(get(2.4)) // Should print "one"
-        // println(traversierung(1.0).key) // Should print "one"
-        // println(get(1.0)) // Should print "one"
+        // println(get(2.4)) 
+        // println(traversierung(1.0).key) 
+        // println(get(1.0)) 
 
 
 @main def runSkiplist(): Unit =
     val myList = new Skiplist[Double, String]
     myList.test()
+    myList.put(23.2,"Esay")
+    myList.put(7654.2,"Esay")
+
+    myList.put(3.2,"Esay")
+
+    myList.put(45.2,"Esay")
+
+    myList.put(7.2,"Esay")
+
+    myList.put(6.2,"Esay")
+
+    myList.put(2.2,"Esay")
+    myList.delete(2.2)
+    println(myList.get(15.0))
+    println(myList.next(15.0))
+    println(myList.prev(15.0))
+    
+    myList.printlist()
