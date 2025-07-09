@@ -109,7 +109,7 @@ Wir nennen T gewichtsbalanciert, falls f¨ur alle inneren Knoten v in T gilt: Se
 vl und vr das linke und das rechte Kind von v. Dann ist w(vl) ≥ w(v)/10 und
 w(vr) ≥ w(v)/10.
 ___
-## (a,b)-Bäume
+## (a,b)-Bäume 
 Ziel:  Implementation geordnetes Wörterbuch effizient.
 Idee: Verwende einen Suchbaum der den perfekten Baum approximiert. (AVL Bäume höhe der Teilbäume können in gewissem Maße variieren. ) wir erlauben dass Bäume mehrere kinder haben können. Anzahl der Kinder ist Variabel.
 **Definition**:
@@ -357,7 +357,7 @@ remove(k):
 
 put(k,v): 
 	pos = h(k)
-	delete pos = null
+	deletepos = null
 	for i= 1 to m
 		if pos.key == key then 
 			pos = (k,v)
