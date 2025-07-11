@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Vorlehsungen/Zeichenketten.md",
+                "file": "Vorlehsungen/Graphen.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Zeichenketten"
+              "title": "Graphen"
             }
           }
         ],
@@ -195,11 +195,12 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "9f196e175de4e0e1",
+  "active": "88bc2303dce88278",
   "lastOpenFiles": [
+    "Medien/Pasted image 20250711123305.png",
+    "Vorlehsungen/Zeichenketten.md",
     "Vorlehsungen/Datenstrukturen.md",
     "Vorlehsungen/Graphen.md",
-    "Vorlehsungen/Zeichenketten.md",
     "Aufgaben/Abgabe 10.md",
     "Aufgaben/Abgabe 4.md",
     "Aufgaben/Abgabe 2.md",

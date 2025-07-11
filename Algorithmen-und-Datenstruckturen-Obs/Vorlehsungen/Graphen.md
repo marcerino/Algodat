@@ -131,3 +131,60 @@ while not Q.isEmpty do
 ___
 ## A* Algorithmus 
 (im fall der Zusattzinformationen) Koordinaten oder Philologische Nähe
+Verbesserung ders Dijkstra Algorithmus für den Fall, dass wir  nur das SPSP-Problem lösen möchten und Zusätzliche Informationen besitzen.
+![[Pasted image 20250711123305.png]]
+1. Beobachtung: Wenn wir eine kürzesten Weg $s,t$berechnen wollen sobald wir $t$ aus der Prioque entfernt haben.
+2. Um einen Kürzesten Weg von Berlin nach Dresden zu finden bestimmt der Algorithmus von Daijkstra die Kürzeste Wege in Die Falsche Richtung. Dies ist Ineffizient da Dresden nicht in richtung Rostdock oder Hannover liegt. (bezogen auf da Tafelbild).
+3. Formalisierung Die Information die wir jetzt nutzenn können, ist dass wir für jeden Kante in Graph Schnell den abstand "schätzen" können (Luftlinie) und wir bevorzugen teilweise Knoten die eine Kürzere Luftlinie Haben. 
+Solche schätzer nennen wir **Heuristik**.
+
+### Implementation
+**Gegeben**: 
+- gewichteten Graph  $G=(V,E)$ (Auch negative gewichte sind erlaubt : )))))))) )
+- 2 knoten $s,t \in V$
+**Gesucht**: Kürzester Weg von $s$ nach $t$.
+**Zusatzinformation**: Heuristik
+$h:V\to \mathbb{R}^+_{0}$ 
+$h(v)$ ist eine "Schätzung" für den Abstand von $v$ zu $t$ 
+Unter der Annahme $h$ ist **Konsistent** für jede Kante $e=u,v\in K$ gilt $h(u)\leq h(v)+h(uv)$
+
+```
+Für alll e: = u,v in E:
+	setzte e(uv) = (uv) + (h(v)-h(u))
+	Führe Dijkstra auf G aus, mit den Angepassten Längen. 
+	Brich ab, sobald sobald t aus PrioQueue entfernt wird. 
+```
+
+
+**Beweis**:
+1. Ist Daijkstra Anwendbar ? 
+H ist Konsistent 
+$$
+\begin{aligned} 
+\forall e = uv\in E \\
+h(u) \leq h(v)+h(uv)
+= h(uv)+(h(v)-h(u)) \geq{0}
+\end{aligned}
+$$
+Wieso ist die ls korrekt, einen kürzesten Weg bezüglich l' zu finden?
+Sei $\pi: s = v_{1}\dots v_{k} =t$ beliebiger weg
+
+$$
+\begin{align}
+l'(v_{1}v_{2})+l'(v_{2}v_{3})+l'(v_{1}v_{2})+\dots+l'(v_{k-1}v_{k})\\
+= l(v_{1}v_{2}) + h(v_{2})-h(v_{1}) \\
+\dots  \\
+l(v_{k-1}v_{k}) + h(v_{k}-v_{k-1}) \\
+\end{align}
+$$
+Die ist eine Teleskop summe Teile Die mittleren Therme weden von de vorherigen Elementen weggenommen.
+$$
+\begin{align}
+= l(v_{1}v_{2})+l(v_{k-1},v_{k}) - h(v_{1})+h(k) \\
+\end{align}
+$\implies \text{alle Längen in } \pi+h(t)-h(s)$
+$$
+
+Wenn aber zu allen beliebigen wegen immer aditiv geffasst wird folgt dass sich die Weglängen ändern aber die Reihenfolge der Wege ändert sich nicht.
+___
+Multiplikatives Kantengewicht. Bro nimmer einfach den logarithmus der Kante dann wird immer aus Mult ein add.
