@@ -181,8 +181,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -195,12 +194,12 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "88bc2303dce88278",
+  "active": "9f196e175de4e0e1",
   "lastOpenFiles": [
-    "Medien/Pasted image 20250711123305.png",
-    "Vorlehsungen/Zeichenketten.md",
     "Vorlehsungen/Datenstrukturen.md",
     "Vorlehsungen/Graphen.md",
+    "Medien/Pasted image 20250711123305.png",
+    "Vorlehsungen/Zeichenketten.md",
     "Aufgaben/Abgabe 10.md",
     "Aufgaben/Abgabe 4.md",
     "Aufgaben/Abgabe 2.md",
@@ -221,7 +220,6 @@
     "Medien/Pasted image 20250523123236.png",
     "Medien/Pasted image 20250523123216.png",
     "Medien/Pasted image 20250522230149.png",
-    "Medien/Pasted image 20250522230123.png",
     "Aufgaben/Abgabe 3.md",
     "Medien/Unbenanntes Notizbuch5.pdf",
     "Medien",

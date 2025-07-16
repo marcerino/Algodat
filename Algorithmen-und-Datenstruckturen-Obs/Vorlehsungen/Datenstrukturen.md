@@ -300,7 +300,7 @@ Also  Die Eigesnchaft von h sind wesentlich für die analyse.
 
 Bracuhen annahme über h
 Einfachse Annahme (**gleichmäßiges Hashing**)
--  h kann in Konstanter Zeit initialisiert und bere chent werden 
+-  h kann in Konstanter Zeit initialisiert und berechent werden 
 - und h verhaltet siech wie eine Zufällige fungktion
 => jedesmal wenn h zum ersten mal für einen  schlüssel k berechnet wird, wält h für k zufälli gleichverteilt ein Index in {,...,n-1}, unabhängige von an deren Schlüssel k Danach ist h(k) fest.
 Aufgrund der Gleichverteilung sind Gesetze wie Taubenschlag prinzip anwendbar.
@@ -310,7 +310,7 @@ Maxiumum ist n
 Die frage was erwarten wir wie viele Elemente im gleichen Eimer wie n sind. 
 ist  1 + SUMME (n- , i=1) xi | wobei xi die WSkeit ist
 
-
+$1 + \sum_{i=1}^{n-1}$
 Sei S eine Menge von Einträgen, die eine Hastabelle mit größe m gesperichert wird. Sei x ein Fester Schlüssel Nimm an fester Schlüssel. Nimm an, wir verwenden Hashing mit verketten und dass sich die Hashfunktion Random verhält. , Dann istdieir Erwartete laufzeit für eine Operation auf x wie folgt, :
 E = [1 + SUMME (n- , i=1) xi] = 1+  summe E[xi] =  + summe 1/m  = Eh[T] = O (1+(n/m))
 

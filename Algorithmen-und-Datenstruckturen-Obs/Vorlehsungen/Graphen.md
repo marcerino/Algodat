@@ -188,3 +188,37 @@ $$
 Wenn aber zu allen beliebigen wegen immer aditiv geffasst wird folgt dass sich die Weglängen ändern aber die Reihenfolge der Wege ändert sich nicht.
 ___
 Multiplikatives Kantengewicht. Bro nimmer einfach den logarithmus der Kante dann wird immer aus Mult ein add.
+Bsp ist ein wechselkurs von Währungen, : ) 
+___
+## Kürzesten Wege mit negativen Kantengewichten
+In Graphen, $G=(V,E)$ die Längen gehen von $l:E\to \mathbb{R}$
+Sei Startknoten $s \in V$ gesucht kürzester weg von $s$ nach $v$ für alle $v \in V$ (SSSP)
+Macht dies Sinn=? 
+was war ein weg von $s$ nach $t$ ? eine Folge von Konten welche mit Kanten verbunden sind
+Länge des Weges ist: $\sum_{i=1}^{k-1}l(v_{i},v_{i+1})$ 
+Kürzester Weg ist weg mit minimaler länger
+
+Das Problem: gäbe es eine Kante mit negativer Kantenlänge, so wäre ein Kreislauf mit einer Länge $\leq0$ so wäre jeder durchlauf immer ein kürzer.
+Lösung: 
+	Lösung 1 (keine Doppelten Knoten)
+	Entweder es existiert ein Kürzester Weg von $s$ zu $t$ oder es existiert einen kreis mit negativen Kantengewicht
+### Algorithmus Belmman Fort
+Liefert Bool der Negativen Kreis gibt oder gibt einen Kürzesten Wegebaum.
+Die Negative Rücklieferung ist ein Zertifikat.
+Idee:
+Beachte Dijkstra Algorithmus
+- Für Jede Kante: $v.d,v.\pi$ Anfang leere Wege $v.\pi=\bot,v.d=\infty$
+- außer für s
+Die verbesserung der Kanten erfolgt, wenn die sistanz zwoschen allemn Kandidaten kleiner ist als vorher.
+Verbesere diese kandidatendurh die Operation improve (l=iv)
+	Algorithmus von Bellemond Fort Sagt: Führe Improve für alle Kanten durch: 
+	for v in V do
+		v.pi:= infinity
+	s.d=0
+	for i = 1 to |V|- do
+		for e in E do
+			improve (e)
+	improve (e) =
+		if w.d < v.d+l(vw) then
+			w.d = v.d +l(vw)
+			w.pi=v
