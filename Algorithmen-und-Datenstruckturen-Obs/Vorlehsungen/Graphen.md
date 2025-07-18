@@ -212,13 +212,30 @@ Beachte Dijkstra Algorithmus
 Die verbesserung der Kanten erfolgt, wenn die sistanz zwoschen allemn Kandidaten kleiner ist als vorher.
 Verbesere diese kandidatendurh die Operation improve (l=iv)
 	Algorithmus von Bellemond Fort Sagt: Führe Improve für alle Kanten durch: 
+``` python 
 	for v in V do
 		v.pi:= infinity
 	s.d=0
-	for i = 1 to |V|- do
+	for i = 1 to |V|-1 do
 		for e in E do
 			improve (e)
 	improve (e) =
 		if w.d < v.d+l(vw) then
 			w.d = v.d +l(vw)
 			w.pi=v
+```
+### SSSP in DAGs
+gegeben: grichterter Graph $G=(V,F)$ 
+kantenlänge $\forall s \in V~|~l:E\to \mathbb{R}$
+er Enthält keine Kreise somit auch keine Negativen Kreise.
+Kürzeste Wege finden. 
+Fakt jeder DAG besitzt eine Topologische Sortierung. 
+Ameider Kante auf der x Achse dass alle kanten im links nach rechts geben.
+___
+# Graphen und Spiele
+Gesellschaftsspiele Lassen sich als Graph Drarstellen und mithilfe von Algorithmen lösen. : )
+1 Spieler Siel mit voller Intermation.
+Lassen sich als Graph Darstellen.
+Knoten: alle Zustände des Spielbretts
+Kanten: Züge von einen State zum Anderen
+Spiel, Finde Züge die mich von einenm State zum Gewinn führt.

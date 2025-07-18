@@ -11,14 +11,10 @@
             "id": "2183bc0cd5ffe7d1",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Vorlehsungen/Graphen.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Graphen"
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "Graphansicht"
             }
           },
           {
@@ -27,16 +23,15 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Vorlehsungen/Graphen.md",
+                "file": "Vorlehsungen/Datenstrukturen.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Graphen"
+              "title": "Datenstrukturen"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -194,12 +189,13 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "9f196e175de4e0e1",
+  "active": "2183bc0cd5ffe7d1",
   "lastOpenFiles": [
-    "Vorlehsungen/Datenstrukturen.md",
     "Vorlehsungen/Graphen.md",
-    "Medien/Pasted image 20250711123305.png",
     "Vorlehsungen/Zeichenketten.md",
+    "Vorlehsungen/Datenstrukturen.md",
+    "Vorlehsungen/Einführung.md",
+    "Medien/Pasted image 20250711123305.png",
     "Aufgaben/Abgabe 10.md",
     "Aufgaben/Abgabe 4.md",
     "Aufgaben/Abgabe 2.md",
@@ -208,7 +204,6 @@
     "Aufgaben/Abgabe 9.md",
     "Medien/Pasted image 20250627132444.png",
     "Medien/20250624_171424.jpg",
-    "Vorlehsungen/Einführung.md",
     "Aufgaben/Abgabe 8.md",
     "Medien/Pasted image 20250613125148.png",
     "Aufgaben/Abgabe 7.md",

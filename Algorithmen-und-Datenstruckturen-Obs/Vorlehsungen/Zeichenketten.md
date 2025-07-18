@@ -183,7 +183,7 @@ Mit jedem schritt wird wird Phi größer
 
 *Siehe den Beweis im Skript*
 
-Maximal 2 n Schritte mit O(1) zeit, somit O von n
+Maximal 2 n Schritte mit O(1) zeit, somit O(n)
 ___
 # String Ähnlichkeiten 
 
@@ -232,4 +232,4 @@ Fall 2:  tn != tm
 ___
 Dynamsche Programmierung:
 	Methode zur Lösung von komplexer Probleme indem sie in Teilmengen Aufgebaut werden.
-	Nutze ein 2 Dimensionales Boolsche Array 
+		Nutze ein 2 Dimensionales Boolsche Array 
