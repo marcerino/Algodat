@@ -11,10 +11,14 @@
             "id": "2183bc0cd5ffe7d1",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Graphansicht"
+              "type": "markdown",
+              "state": {
+                "file": "Vorlehsungen/Graphen.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Graphen"
             }
           },
           {
@@ -191,8 +195,8 @@
   },
   "active": "2183bc0cd5ffe7d1",
   "lastOpenFiles": [
-    "Vorlehsungen/Graphen.md",
     "Vorlehsungen/Zeichenketten.md",
+    "Vorlehsungen/Graphen.md",
     "Vorlehsungen/Datenstrukturen.md",
     "Vorlehsungen/Einführung.md",
     "Medien/Pasted image 20250711123305.png",

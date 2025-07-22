@@ -141,7 +141,7 @@ Solche schätzer nennen wir **Heuristik**.
 ### Implementation
 **Gegeben**: 
 - gewichteten Graph  $G=(V,E)$ (Auch negative gewichte sind erlaubt : )))))))) )
-- 2 knoten $s,t \in V$
+- 2 Knoten $s,t \in V$
 **Gesucht**: Kürzester Weg von $s$ nach $t$.
 **Zusatzinformation**: Heuristik
 $h:V\to \mathbb{R}^+_{0}$ 
